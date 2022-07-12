@@ -1,0 +1,25 @@
+git clone - komanda, skirta nusikopijuoti repozitoriją lokaliai
+pvz: git clone https://github.com/VytautasKalinauskas/CodeAcademy.git
+
+git status - komanda, skirta paziureti kuriam branche esame ir kokie failai yra prideti/pakeisti/istrinti
+
+git add - komanda, skirta prideti naujai sukurtiems failams
+pvz git add . - prides visus naujai sukurtus failus
+git add failas.txt - prides tik failas.txt faila
+
+git branch - komanda, skirta parodyti visiems egzistuojantiems lokaliems branchams
+
+git checkout - komanda, skirta keisti branchus
+pvz git checkout main - pereis i brancha "main" (jeigu toks egzistuoja)
+git checkout -b naujas_branchas - sukurs nauja brancha pavadinimu "naujas_branchas". Sukurta bus is to brancho, kuriame buvome pries tai.
+
+git commit - komanda, skirta sucommitinti pakeistiems/pridetiems/istrintiems failams
+pvz git commit -a - commitina visus pakeistus/pridetus/istrintus failus
+git commit failas.txt - commitina konkretu faila "failas.txt" (jeigu toks egzistuoja)
+
+
+git push origin - komanda, skirta supushinti pakeitimams i remote repositorija
+pvz git push origin main - supushins viska i remote main brancha (lokalus ir remote branchu vardas turi sutapti)
+
+git pull origin - komanda, skirta pasiimti pakeitimams is remote repositorijos
+pvz git pull origin main - pasiims naujausius pakeitimus is remote main brancho.

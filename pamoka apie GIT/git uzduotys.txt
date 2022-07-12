@@ -1,0 +1,14 @@
+1. pasiziureti, ar esam pagrindiniame branche main/master
+2. sukurti nauja brancha pavadinimu ismokau_git
+3. sukurti 2 tekstinius failus pavadinimais beveikmoku.txt ir viskamoku.txt
+4. prideti ir sucommitinti faila beveikmoku.txt
+5. grizti i pagrindini brancha (main arba master ir paziureti ar dingo failas beveikmoku.txt)
+6. grizti i brancha ismokau_git ir supushinti anksciau sucommitinta faila i github ismokau_git brancha
+7. githube padaryt pull requesta i main/master brancha ir ji patvirtinti
+8. lokaliai grizti i pagrindini brancha main/master ir pasiimti naujausius pakeitimus. Turetu atsirasti failas beveikmoku.txt
+9. grizti i brancha ismokau_git, susikurti dar viena tekstini faila viskamoku2.txt
+10. per viena komanda prideti abu failus (viskamoku.txt ir viskamoku2.txt)
+11. per viena komanda abu failus sucommitinti
+12. supushinti failus i githuba
+13. githube padaryti pull requesta i main/master brancha
+14. lokaliai grizti i main/master brancha ir pasiimti naujausius pakeitimus (turetu atsirasti failai viskamoku.txt ir viskamoku2.txt)
