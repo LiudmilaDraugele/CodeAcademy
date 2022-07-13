@@ -10,43 +10,110 @@ import org.junit.jupiter.api.Test;
 
 class MetodaiTest {
 
-	@BeforeAll
+	static Metodai metodai;
+	static ArrayList<Integer> numbers;
+
+	@BeforeAll // arba @BeforeEach
 	static void setUpBeforeClass() throws Exception {
+
+		metodai = new Metodai();
+		numbers = new ArrayList<>(Arrays.asList(65, 45, 25, 15));
 	}
 
 	@Test
 	void test() {
-		//fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
-	void smallestNumberTest() {
-		
-		Metodai metodai = new Metodai();
-		ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(10,8,6,6,8,9,6,5,4,5,13,15));
+	void smallestNumberTest() throws Exception {
+
 		Integer smallestNumber = metodai.smallestNumber(numbers);
-		assertEquals(4, smallestNumber);
+		assertEquals(15, smallestNumber);
 	}
+
+	@Test
+	void smallestNumberTestException() {
+
+		assertThrows(NullPointerException.class, () -> metodai.smallestNumber(new ArrayList<>()),
+				"Expected doThing() to trow, but it didn't");
+
+	}
+
 	@Test
 	void averageCalculationTest() {
-		Metodai metodai = new Metodai();
-		ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(60,20,30,10,10));
+
+		ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(60, 20, 30, 10, 10));
 		Double average = metodai.averageCalculation(numbers);
 		assertEquals(26, average);
 	}
+
 	@Test
-	void findMiddleCharacterTest() {
-		Metodai metodai = new Metodai();
+	void findMiddleCharacterTestOdd() {
+
 		String word = "zodeliukas";
 		String middle = metodai.findMiddleCharacter(word);
 		assertEquals("li", middle);
 	}
+
+	@Test
+	void findMiddleCharacterTestEven() {
+
+		String word = "zodeliuka";
+		String middle = metodai.findMiddleCharacter(word);
+		assertEquals("l", middle);
+	}
+
 	@Test
 	void countVowelsTest() {
-		Metodai metodai = new Metodai();
-		String word = " w3resource";
+
+		String word = "nebeprisikiskiakopusteliaujantiesiems";
 		int count = metodai.countVowels(word);
-		assertEquals(4, count);
-		System.out.println(count);
+		assertEquals(18, count);
+		// System.out.println(count);
+	}
+
+	@Test
+	void countWordsTest() {
+
+		String string = "The quick brown fox jumps over the lazy dog.";
+		int count = metodai.countWords(string);
+		assertEquals(9, count);
+	}
+
+	@Test
+	void sumOfDigitsInInteger() {
+
+		Integer number = 1213;
+		int count = metodai.sumOfDigitsInInteger(number);
+		assertEquals(7, count);
+	}
+	@Test 
+	void convertIntegerToMonthTestZero() {
+		
+		int number =0;
+		String answer = metodai.convertIntegerToMonth(number);
+		assertEquals("netinkamas skaicius", answer);
+	}
+	@Test 
+	void convertIntegerToMonthTestEven() {
+		
+		int number =4;
+		String answer = metodai.convertIntegerToMonth(number);
+		assertEquals("balandis", answer);
+	}
+	@Test 
+	void convertIntegerToMonthTestOddNumber() {
+		
+		int number =7;
+		String answer = metodai.convertIntegerToMonth(number);
+		assertEquals("liepa", answer);
+	}
+	@Test 
+	void convertIntegerToMonthTestWrongNumber() {
+		
+		int number =13;
+		String answer = metodai.convertIntegerToMonth(number);
+		assertEquals("netinkamas skaicius", answer);
 	}
 }
