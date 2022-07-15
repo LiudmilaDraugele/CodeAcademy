@@ -14,7 +14,7 @@ pvz git checkout main - pereis i brancha "main" (jeigu toks egzistuoja)
 git checkout -b naujas_branchas - sukurs nauja brancha pavadinimu "naujas_branchas". Sukurta bus is to brancho, kuriame buvome pries tai.
 
 git commit - komanda, skirta sucommitinti pakeistiems/pridetiems/istrintiems failams
-pvz git commit -a - commitina visus pakeistus/pridetus/istrintus failus
+pvz git comorigin t -a - commitina visus pakeistus/pridetus/istrintus failus
 git commit failas.txt - commitina konkretu faila "failas.txt" (jeigu toks egzistuoja)
 
 
