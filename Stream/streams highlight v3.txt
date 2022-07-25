@@ -1,0 +1,50 @@
+* map - naudojamas darbui su objektu(klasiu) kolekcijomis (sarasais, masyvais), kai norima is klases pasiimti vieno konkretaus lauko reiksmes
+* filter - naudojamas filtravimui
+* findFirst - paima pirma elementa is kolekcijos. Grazina Optional<Object> tipo objekta, tad dar reikia prideti .orElse(null);
+* peek - skirtas atspausdinti turimas reiksmes streame
+* sorted - skirtas rusiavimui. Jeigu rusiuojami klasiu objektai galima nurodyti pagal kuri lauka
+* distinct - panaikina dublikatus is saraso
+* allMatch/anyMatch/noneMatch - atitinkamai paziuri ar visi/bent vienas/ nei vienas objektas is kolekcijos neatitinka nurodytu salygu.
+* count - grazina, kiek elementu yra kolekcijoje
+
+susikurti sarasa:
+List<String> strList = Arrays.asList("abc", "", "bcd", "", "defg", "jk");
+
+uzduotys:
+1. surasti, kiek yra tusciu elementu
+2. surasti, kiek yra elementu, kuriu ilgis daugiau uz 3 
+3. surasti, kiek yra elementu, kurie prasideda a raide
+4. pasalinti visus tuscius elementus is saraso
+5. atrinkti tik tuos elementus, kuriu ilgis daugiau uz 2
+6. paversti visus elementus i didziasias raides
+7. suskaiciuoti, kiek yra unikaliu elementu sarase
+8. patikrinti, ar yra bent vienas elementas sarase, kurio ilgis yr 4 simboliai
+9. Surusiuoti sarasa eiles tvarka
+10. Surusiuoti sarasa atvirksciai 
+
+******************************************************************
+
+List<Integer> numbers = Arrays.asList(9, 10, 3, 4, 7, 3, 4);
+1. sukurti nauja sarasa, kuris butu visu siu skaiciu kvadratai (81, 100, 9, 16, 49, 9, 16)
+2. surasti, ar visi skaiciai yra didesni uz 5
+3. atfiltruoti visus lyginius skaicius, kurie yra didesni uz 5
+4. surasti didziausia/maziausia skaicius
+5. is List<Integer> paversti i List<String> kuris prie kiekvieno elemento pridetu zodi Number (Number 9, Number 10, Number 3)
+
+******************************************************************
+
+Sukurti klase Student kuri turetu kintamuosius Name(String), FavoriteSubject(Enum Subjects), grades(ArrayList<Integer>);
+Pakurti 5 studentu objektus pagrindineje klaseje ir sudeti juos i studentu sarasa group;
+
+1. Patikrinti, ar klaseje yra bent vienas studentas vardu Tomas
+2. Suskaiciuoti, kiek klaseje yra studentu, kuriu megstamiausias dalykas yra IT
+3. Grazinti sarasa unikaliu studentu vardu (List<String>);
+4. Surusiuoti studentus pagal varda abeceles tvarka;
+5. Atrinkti studentus, kuriu vidurkis yra didesnis uz 7 (vidurkiui skaiciu naudoti atskirai parasyta metoda Student klaseje);
+
+
+
+
+
+
+
