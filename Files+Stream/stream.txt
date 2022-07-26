@@ -1,0 +1,5 @@
+1. atrinkti stringus, kurie turi bent viena "a" arba "A" raide.;
+2. suskaiciuoti kiek stringu yra ilgesni uz 6;
+3. surusiuoti sarasa atvirkstine abeceles tvarka;
+4. suskaiciuoti, kiek yra unikaliu stringu sarase;
+5. atrinkti stringus, kurie prasideda raide "s"

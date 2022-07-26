@@ -1,0 +1,18 @@
+Original data: 
+Zodis, Zodis2, HAHAH, zodelis, asd, asd, asd, sbbb,  , zodis, 
+String contais A or a: 
+HAHAH, asd, asd, asd, 
+Strings, that are longer than 6: 
+zodelis, 
+List, that was ordered in reverse order: 
+zodis, zodelis, sbbb, asd, asd, asd, Zodis2, Zodis, HAHAH,  , 
+Elements, that are starting with s: 
+sbbb, 
+Number of unique elements: 
+8, 
+New list, created only from 2 characters: 
+Zo, Zo, HA, zo, as, as, as, sb, zo, 
+List of word lengths: 
+5, 6, 5, 7, 3, 3, 3, 4, 1, 5, 
+List of words, taht are at lest 3 characters long: 
+Zodis, Zodis2, HAHAH, zodelis, asd, asd, asd, sbbb, zodis, 
