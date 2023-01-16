@@ -1,0 +1,819 @@
+from index page button code:
+
+makeAllPagesInvisible();
+
+function makeAllPagesInvisible(){
+    document.getElementById("additionalTimePage").classList = "optionaldiv";
+    document.getElementById("caseCountingPage").classList = "optionaldiv";
+    document.getElementById("planPage").classList = "optionaldiv";
+    document.getElementById("checklistPage").classList = "optionaldiv";
+    document.getElementById("leadersPage").classList = "optionaldiv";
+    document.getElementById("competenciesPage").classList = "optionaldiv";
+    document.getElementById("tasksPage").classList = "optionaldiv";
+    document.getElementById("employeesPage").classList = "optionaldiv";
+    document.getElementById("teamsPage").classList = "optionaldiv";
+}
+
+let logoutbutton = document.getElementById("logoutButton");
+logoutbutton.addEventListener("click", logOut);
+
+function logOut(e){
+    e.preventDefault();
+    localStorage.removeItem("user");
+    localStorage.removeItem("shortname");
+	localStorage.removeItem("token");
+	localStorage.removeItem("userid");
+    localStorage.removeItem("userrole");
+    window.location.assign("http://127.0.0.1:3000/PlanningToolFront/index.html");
+    //window.close();
+	//window.open("./index.html");
+}
+
+function reply_click()
+{
+    // event.target is the element that is clicked (button in this case).
+    console.log(event.target.id);
+}
+
+// let button1 = document.getElementById("additionalTimeMenuButton");
+// button1.addEventListener("click", toggleMenuPage(this.id));
+// let button2 = document.getElementById("caseCountingMenuButton");
+// button2.addEventListener("click", toggleCountingPage);
+// let button3 = document.getElementById("planMenuButton");
+// button3.addEventListener("click", togglePlanPage);
+// let button4 = document.getElementById("checklistMenuButton");
+// button4.addEventListener("click", toggleChecklistPage);
+// let button5 = document.getElementById("leadersPageMenuButton");
+// button5.addEventListener("click", toggleLeadersPage);
+// let button6 = document.getElementById("competenciesMenuButton");
+// button6.addEventListener("click", toggleCompetenciesPage);
+// let button7 = document.getElementById("tasksMenuButton");
+// button7.addEventListener("click", toggleTasksPage);
+// let button8 = document.getElementById("employeesMenuButton");
+// button8.addEventListener("click", toggleEmployeesPage);
+// let button9 = document.getElementById("teamsMenuButton");
+// button9.addEventListener("click", toggleTeamsPage);
+
+
+function toggleMenuPage(){
+
+    makeAllPagesInvisible();
+    switch (event.target.id){
+        case "additionalTimeMenuButton":
+            document.getElementById("additionalTimePage").classList = "optionaldivvisible"; 
+            break;
+    }
+    }
+
+// function toggleAdditionalTimePage(e){
+// e.preventDefault();
+// makeAllPagesInvisible();
+// document.getElementById("additionalTimePage").classList = "optionaldivvisible";
+// }
+// function toggleCountingPage(e){
+//     e.preventDefault();
+//     makeAllPagesInvisible();
+//     document.getElementById("caseCountingPage").classList = "optionaldivvisible";
+//     } 
+// function togglePlanPage(e){
+//         e.preventDefault();
+//         makeAllPagesInvisible();
+//         document.getElementById("planPage").classList = "optionaldivvisible";
+//     }  
+// function toggleChecklistPage(e){
+//         e.preventDefault();
+//         makeAllPagesInvisible();
+//         document.getElementById("checklistPage").classList = "optionaldivvisible";
+//     }            
+// function toggleLeadersPage(e){
+//         e.preventDefault();
+//         makeAllPagesInvisible();
+//         document.getElementById("leadersPage").classList = "optionaldivvisible";
+//     }    
+// function toggleCompetenciesPage(e){
+//         e.preventDefault();
+//         makeAllPagesInvisible();
+//         document.getElementById("competenciesPage").classList = "optionaldivvisible";
+//     }   
+// function toggleTasksPage(e){
+//         e.preventDefault();
+//         makeAllPagesInvisible();
+//         document.getElementById("tasksPage").classList = "optionaldivvisible";
+//     }
+// function toggleEmployeesPage(e){
+//         e.preventDefault();
+//         makeAllPagesInvisible();
+//         document.getElementById("employeesPage").classList = "optionaldivvisible";
+//     } 
+// function toggleTeamsPage(e){
+//         e.preventDefault();
+//         makeAllPagesInvisible();
+//         document.getElementById("teamsPage").classList = "optionaldivvisible";
+//     }     
+
+
+
+
+ADD ADDITIONAL TIME lapas, in progress, jei pas mane butu Start ir End Datos
+
+let addadditional = document.getElementById("addTimeForm");
+addadditional.addEventListener("submit", createAdditional);
+
+async function createAdditional(e){
+	e.preventDefault();
+	
+	let myemployeeid = document.getElementById("addTimeEmployeeSelect").value;
+    let mystartdate = document.getElementById("addStartDateForTime").value;
+    let myenddate = document.getElementById("addEndDateForTime").value;
+    
+    let myactivity = document.getElementById("addActivitySelect").value;
+    let myduration = document.getElementById("addTimeInput").value;
+    let mycomment = document.getElementById("addExplanationInput").value;
+    
+    if (myenddate == null || (myenddate==mystartdate)) {
+     
+	await fetch("http://localhost:8886/planning/api/additional/create",{
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({employeeId: myemployeeid, 
+            date: mystartdate,  
+            activityId: myactivity, duration: myduration, comment: mycomment})
+    })
+    .then(res => res.json())
+    .then(data => { 
+        console.log(data);
+        window.location.reload();
+        e.preventDefault();
+        document.getElementById("additionalTimePage").classList = "optionaldivvisible"; 
+    });
+} else
+    {  let date = new Date(mystartdate);
+        console.log(mystartdate);
+        console.log(date)
+        let date2 = new Date(myenddate);
+        //  while(date.toDateString()!=date2.toDateString()){
+        //     date= new Date(date.getDate() + 1);
+        //     console.log(date)
+        //  }
+        
+        
+        
+
+        date.setDate(date.getDate() + 1);
+        console.log(date.toDateString());
+        
+        // if (new Date(myenddate)==date){
+        //     console.log("data sutampa")
+        // }
+}      
+}
+
+
+COUNTING page
+//vieno tasko countingo create
+async function createCounting(taskidforcounting,taskcount,taskcomment){
+
+    await fetch(`http://localhost:8886/planning/api/counting/create`,{
+        method: "POST",
+        headers: {
+             "Content-type": "application/json",
+             "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+         },
+        body: JSON.stringify({taskId: taskidforcounting, date:mydateforcounting,
+            count:taskcount, comment:taskcomment})
+       })
+   .then(res => res.json())
+
+
+}
+
+///vieno tasko counting update
+async function updateCounting(mycountingid,taskidforcounting,taskcount,taskcomment){
+
+
+    await fetch(`http://localhost:8886/planning/api/counting/${mycountingid}`,{
+        method: "PUT",
+        headers: {
+             "Content-type": "application/json",
+             "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+         },
+        body: JSON.stringify({id:mycountingid, taskId: taskidforcounting, date:mydateforcounting,
+            count:taskcount, comment:taskcomment})
+       })
+   .then(res => res.json())
+
+
+}
+
+
+et mydateplaninput = document.getElementById("dateForPlanInput");
+let mydateforplan;
+
+let tasksarrayforplan;
+let employeearrayforplan;
+let activitieslistforplan;
+let competenciesarrayforplan;
+getTasksForPlan();
+getEmployeesForPlan();
+getActivitiesListForPlan();
+getCompetenciesArrayForPlan();
+let additionaltimearrayforplan;
+let countingarrayforplan;
+let databuttonclickcount=0;
+
+mydateplaninput.addEventListener("change", resetPlan);
+
+function resetPlan(){
+    console.log("pakeista data");
+    clearPlanGridValues(tasksarrayforplan, employeearrayforplan, activitieslistforplan);
+    mydateforplan = document.getElementById("dateForPlanInput").value.toString();
+    console.log(mydateforplan);
+    getAdditionalTimesForPlan(mydateforplan);
+    getCountingForPlan(mydateforplan);
+    createPlanGrid(tasksarrayforplan, employeearrayforplan, activitieslistforplan);
+
+    createInputsForValuesInPlanGrid(competenciesarrayforplan,tasksarrayforplan, employeearrayforplan);
+
+    setTimeout(() => {
+        populateAdditionalTimesToPlan(additionaltimearrayforplan);
+        populateCountingToPlan(countingarrayforplan);
+          }, "300")
+
+          checkIfPlanExistAndPopulateWithValues(mydateforplan);
+
+    setTimeout(() => {
+        populateHoursNeeded(countingarrayforplan);
+        populateHoursAssigned(countingarrayforplan, employeearrayforplan, tasksarrayforplan)
+        
+          }, "300")
+}
+
+let myplandatebutton = document.getElementById("getDateForPlan");
+myplandatebutton.addEventListener("click", () => {
+    
+    if (databuttonclickcount!=0){
+        console.log("dar karta paspaustas mygtukas");
+        clearPlanGridValues(tasksarrayforplan, employeearrayforplan, activitieslistforplan);
+        databuttonclickcount = 0;
+    }
+   
+    databuttonclickcount++;
+    mydateforplan = document.getElementById("dateForPlanInput").value.toString();
+    console.log(mydateforplan);
+    getAdditionalTimesForPlan(mydateforplan);
+    getCountingForPlan(mydateforplan);
+    createPlanGrid(tasksarrayforplan, employeearrayforplan, activitieslistforplan);
+
+    createInputsForValuesInPlanGrid(competenciesarrayforplan,tasksarrayforplan, employeearrayforplan);
+
+    setTimeout(() => {
+    populateAdditionalTimesToPlan(additionaltimearrayforplan);
+    populateCountingToPlan(countingarrayforplan);
+      }, "300")
+     
+    checkIfPlanExistAndPopulateWithValues(mydateforplan);
+
+    setTimeout(() => {
+        populateHoursNeeded(countingarrayforplan);
+        populateHoursAssigned(countingarrayforplan, employeearrayforplan, tasksarrayforplan)
+        
+          }, "300")
+
+
+});
+
+async function getTasksForPlan() {
+
+    await fetch("http://localhost:8886/planning/api/task/all",{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("got all tasks for plan");
+        tasksarrayforplan = data;
+        console.log(`get tasks for plan  task array dydis yra ${tasksarrayforplan.length}`)
+        });
+}
+
+async function getEmployeesForPlan() {
+
+    await fetch("http://localhost:8886/planning/api/employee/all",{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("got all employees for plan");
+        employeearrayforplan = data;
+        });
+}
+
+async function getActivitiesListForPlan(){
+
+    await fetch("http://localhost:8886/planning/api/activity/all",{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("got all activities for plan");
+        activitieslistforplan = data;
+    });
+
+}
+
+async function getCompetenciesArrayForPlan(){
+
+    await fetch("http://localhost:8886/planning/api/competency/all",{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("got all competencies for plan");
+        competenciesarrayforplan = data;
+        });
+}
+
+async function getAdditionalTimesForPlan(mydateforplan){
+    await fetch(`http://localhost:8886/planning/api/additional/bydate/${mydateforplan}`,{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("got all additional times for plan");
+        additionaltimearrayforplan = data;
+        });
+
+}
+
+async function getCountingForPlan(mydateforplan){
+    await fetch(`http://localhost:8886/planning/api/counting/bydate/${mydateforplan}`,{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("got all counting by date for plan");
+        countingarrayforplan = data;
+        });
+
+}
+
+async function checkIfPlanExistAndPopulateWithValues(mydateforplan){
+   
+    await fetch(`http://localhost:8886/planning/api/plan/bydate/${mydateforplan}`,{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.length != 0){
+            populatePlanGridWithValues(data);
+        } 
+        else{
+            console.log("pasirinktai datai - irasu nerasta")
+            
+        }
+            })
+}
+
+function createPlanGrid(tasksarrayforplan, employeearrayforplan, activitieslistforplan){
+
+    let collumncount = employeearrayforplan.length + 9;
+    console.log(collumncount)
+    let rowcount = tasksarrayforplan.length+activitieslistforplan.length+2;
+    console.log(rowcount)
+
+    let planmaingrid = document.getElementById("planGrid");
+    planmaingrid.classList="planGrid";
+    planmaingrid.style.gridTemplateColumns = `repeat(${collumncount}, fit-content(200px))`;
+    //planmaingrid.style.gridTemplateRows = `repeat(${rowcount}, 1fr)`;
+    
+    for(let x =0;x<collumncount; x++){
+        let plancollumn = document.createElement("div");
+        plancollumn.classList = "plancollumn";
+        plancollumn.id="plancollumn-"+x;
+        planmaingrid.appendChild(plancollumn);
+
+        for(let y=0; y<rowcount; y++){
+        let plancell = document.createElement("div");
+        plancell.classList = "planscell";
+        plancell.id = "cell-"+ x +"-"+ y;
+        plancollumn.appendChild(plancell);
+    }
+    }
+    
+    let invisiblecell;
+    for(let inv = 0; inv<7;inv++){
+        invisiblecell = document.getElementById(`cell-${inv}-0`);
+    invisiblecell.classList = "planscellinvisible";
+    }
+    invisiblecell = document.getElementById(`cell-${collumncount-2}-0`);
+    invisiblecell.classList = "planscellinvisible";
+    invisiblecell = document.getElementById(`cell-${collumncount-1}-0`);
+    invisiblecell.classList = "planscellinvisible";
+
+    let titlecell0 = document.getElementById("cell-0-1");
+    titlecell0.textContent = "Task name";
+    let titlecell1 = document.getElementById("cell-1-1");
+    titlecell1.textContent = "Target time";
+    let titlecell2 = document.getElementById("cell-2-1");
+    titlecell2.textContent = "Hours needed";
+    let titlecell3 = document.getElementById("cell-3-1");
+    titlecell3.textContent = "Hours assigned";
+    let titlecell4 = document.getElementById("cell-4-1");
+    titlecell4.textContent = "Hours of backlog";
+    let titlecell5 = document.getElementById("cell-5-1");
+    titlecell5.textContent = "Volumes";
+    let titlecell6 = document.getElementById("cell-6-1");
+    titlecell6.textContent = "Remaining volumes";
+    let titlecell7 = document.getElementById(`cell-${collumncount-2}-1`);
+    titlecell7.textContent = "Comments";
+    titlecell7.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
+    titlecell7.style.height = "160px";
+    titlecell7.style.width = "250px";
+    titlecell7.style.textAlign = "center";
+    let titlecell8 = document.getElementById(`cell-${collumncount-1}-1`);
+    titlecell8.textContent = "SLA";
+    titlecell8.style.height = "160px";
+    titlecell8.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
+    titlecell8.style.width = "26px";
+    titlecell8.style.textAlign = "start";
+    titlecell8.style.writingMode = "vertical-rl";
+
+    let namecell;
+    let timeleftcell;
+    let e;
+    for(let emp = 0; emp<employeearrayforplan.length;emp++){
+        e = emp+7;
+        namecell = document.getElementById(`cell-${e}-1`);
+        namecell.textContent = employeearrayforplan[emp].name;
+        namecell.data = employeearrayforplan[emp].id;
+        namecell.style.height = "160px";
+        namecell.style.width = "26px";
+        namecell.style.writingMode = "vertical-rl";
+        namecell.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
+        namecell.style.backgroundColor = "rgb(217, 232, 218)";
+        namecell.style.textAlign = "end";
+        timeleftcell = document.getElementById(`cell-${e}-0`);
+        timeleftcell.style.height = "26px";
+        timeleftcell.style.width = "26px";
+    }
+
+    let taskcell;
+    let tasktimecell;
+    let taskslacell;
+    let activitynamecell;
+    for(let i = 0; i<tasksarrayforplan.length;i++){
+        e = i+2;
+        taskcell = document.getElementById(`cell-0-${e}`);
+        taskcell.textContent = tasksarrayforplan[i].name;
+        taskcell.data = tasksarrayforplan[i].id;
+        taskcell.style.backgroundColor = "rgb(217, 232, 218)";
+        taskcell.style.height = "26px";
+        tasktimecell = document.getElementById(`cell-1-${e}`);
+        tasktimecell.textContent = tasksarrayforplan[i].minutes;
+        tasktimecell.style.backgroundColor = "rgb(217, 232, 218)";
+        tasktimecell.style.height = "26px";
+        tasktimecell.style.width = "26px";
+
+        taskslacell = document.getElementById(`cell-${collumncount-1}-${e}`);
+        if(tasksarrayforplan[i].type == "EXTERNAL"){
+            taskslacell.textContent = `E-${tasksarrayforplan[i].sla}`;
+        }
+        if(tasksarrayforplan[i].type == "INTERNAL"){
+            taskslacell.textContent = `I-${tasksarrayforplan[i].sla}`;
+        }
+    }
+    for(let i = 0; i<activitieslistforplan.length;i++){
+        e = i+2+tasksarrayforplan.length;
+        activitynamecell = document.getElementById(`cell-0-${e}`);
+        activitynamecell.textContent = activitieslistforplan[i].name;
+        console.log(`>>>.>>${activitieslistforplan[i].id} /// ${activitieslistforplan[i].name}`)
+        activitynamecell.data = activitieslistforplan[i].id;
+        activitynamecell.style.height = "26px";
+    }
+
+}
+
+function createInputsForValuesInPlanGrid(competenciesarrayforplan,tasksarrayforplan, employeearrayforplan){
+
+    let cellXnr;
+    let cellYnr;
+    let cellforinput;
+    
+    for(let x=0; x<employeearrayforplan.length; x++){
+        for(let y=0; y<tasksarrayforplan.length; y++){
+            cellYnr=y+2;
+            cellXnr = x+7;
+                        for(let i=0; i<competenciesarrayforplan.length; i++){
+                if((document.getElementById(`cell-0-${cellYnr}`).data == competenciesarrayforplan[i].taskId)
+                &&(document.getElementById(`cell-${cellXnr}-1`).data == competenciesarrayforplan[i].employeeId)){
+                    console.log(document.getElementById(`cell-0-${cellYnr}`).data);
+                    console.log(competenciesarrayforplan[i].taskId);
+                    cellforinput = document.getElementById(`cell-${cellXnr}-${cellYnr}`);
+                    let inputinthecell = document.createElement("input");
+                    inputinthecell.classList = "inputinthecell";
+                    //
+                    //  pakeiciau ionput ID generavimo logika
+                    //
+                    //inputinthecell.id = `input-employee${competenciesarrayforplan[i].employeeId}-task${competenciesarrayforplan[i].taskId}`;
+                    inputinthecell.id = `input-${cellXnr}-${cellYnr}`;
+                    console.log(`>>>>>${competenciesarrayforplan[i].level}`)
+                    if(competenciesarrayforplan[i].level == 1){
+                        inputinthecell.style.backgroundColor = "rgb(171, 167, 167)";
+                        cellforinput.style.backgroundColor = "rgb(171, 167, 167)";
+                    } else if (competenciesarrayforplan[i].level == 2){
+                        inputinthecell.style.backgroundColor = "rgb(152, 213, 152)";
+                        cellforinput.style.backgroundColor = "rgb(152, 213, 152)";
+                    } else if(competenciesarrayforplan[i].level == 3){
+                        inputinthecell.style.backgroundColor = "rgb(150, 200, 74)";
+                        cellforinput.style.backgroundColor = "rgb(150, 200, 74)";
+                    } else if(competenciesarrayforplan[i].level == 4){
+                        inputinthecell.style.backgroundColor = "rgb(246, 246, 84)";
+                        cellforinput.style.backgroundColor = "rgb(246, 246, 84)";
+                    }
+
+                    ///////
+                    /////   cia mano pasikeitimu event listeneris!!!!
+                    /////
+                    /////
+                    /////
+                    ////
+                    inputinthecell.addEventListener("change", () => {
+                        setTimeout(() => {
+                            populateHoursNeeded(countingarrayforplan);
+                            populateHoursAssigned(countingarrayforplan, employeearrayforplan, tasksarrayforplan)
+                            
+                              }, "300")
+                        
+                    })
+                    cellforinput.appendChild(inputinthecell);
+                }
+                else{
+                    cellforinput = document.getElementById(`cell-${cellXnr}-${cellYnr}`);
+                    cellforinput.style.backgroundColor = "rgb(220, 224, 220)";
+                }
+            }
+        }
+    }
+}
+
+function populateCountingToPlan(countingarrayforplan){
+    
+    let cellYnr;
+    let countingcell;
+    let commentcell;
+    for(let i=0; i<tasksarrayforplan.length; i++){
+        cellYnr=i+2;
+        for(let j=0; j<countingarrayforplan.length; j++){
+        if(document.getElementById(`cell-0-${cellYnr}`).data == countingarrayforplan[j].taskId){
+            console.log(countingarrayforplan[j].count);
+            countingcell = document.getElementById(`cell-5-${cellYnr}`);
+            countingcell.style.backgroundColor = "rgb(217, 232, 218)";
+            countingcell.textContent = countingarrayforplan[j].count;
+            commentcell = document.getElementById(`cell-12-${cellYnr}`);
+            commentcell.style.backgroundColor = "rgb(217, 232, 218)";
+            commentcell.textContent = countingarrayforplan[j].comment;
+        }
+        }
+    }
+
+}
+
+function populateAdditionalTimesToPlan(additionaltimearrayforplan){
+    
+    let cellYnr;
+    let cellXnr;
+    let additionalcell;
+    let str;
+    for(let x=0; x<employeearrayforplan.length; x++){
+        
+        for(let y=0; y<tasksarrayforplan.length; y++){
+            cellYnr=y+2+tasksarrayforplan.length;
+            cellXnr = x+7;
+                     for(let i=0; i<additionaltimearrayforplan.length; i++){
+                        
+                          
+                if((document.getElementById(`cell-0-${cellYnr}`).data == additionaltimearrayforplan[i].activityId)
+                &&(document.getElementById(`cell-${cellXnr}-1`).data == additionaltimearrayforplan[i].employeeId)){
+                    // console.log(`asasa1   ${document.getElementById(`cell-0-${cellYnr}`).data}`);
+                    // console.log(`asasa2   ${competenciesarrayforplan[i].activityId}`);
+                    additionalcell = document.getElementById(`cell-${cellXnr}-${cellYnr}`);
+                    str = (additionaltimearrayforplan[i].duration/60).toString();
+                    str = str.slice(0, (str.indexOf(".")) + 2 + 1); 
+                    additionalcell.textContent = str;
+                    additionalcell.value = additionaltimearrayforplan[i].duration;
+                    
+                }  
+            }
+        }
+     }
+}
+
+
+function populatePlanGridWithValues(data){
+
+    console.log(`date for plan = ${mydateforplan}`);
+    console.log(`tasks for plan= ${tasksarrayforplan}`);
+    console.log(`employee for plan = ${employeearrayforplan}`);
+    console.log(`activities for plan = ${activitieslistforplan}`);
+    console.log(`competencies for plan = ${competenciesarrayforplan}`);
+    let mycount, myemployeeId, mytaskId, cellYnr, cellXnr, myinput, mymarked, mydone;
+    
+    
+    for(let x=0; x<employeearrayforplan.length; x++){
+        for(let y=0; y<tasksarrayforplan.length; y++){
+            cellYnr=y+2;
+            cellXnr = x+7;
+                       for(let i=0; i<competenciesarrayforplan.length; i++){
+                                 if((document.getElementById(`cell-0-${cellYnr}`).data == data[i].taskId)
+                                    &&(document.getElementById(`cell-${cellXnr}-1`).data == data[i].employeeId)){
+                    
+                     myinput = document.getElementById(`input-${cellXnr}-${cellYnr}`);
+                     myinput.value = data[i].count;
+                                    }
+                        }
+        }
+    }
+}
+
+
+function populateHoursNeeded(countingarrayforplan){
+
+    let cellYnr;
+    let hoursneededcell;
+   
+    let str
+    
+    for(let i=0; i<tasksarrayforplan.length; i++){
+        cellYnr=i+2;
+        for(let j=0; j<countingarrayforplan.length; j++){
+        
+            hoursneededcell = document.getElementById(`cell-2-${cellYnr}`);
+            hoursneededcell.style.backgroundColor = "rgb(217, 232, 218)";
+            hoursneededcell.value = document.getElementById(`cell-1-${cellYnr}`).textContent * document.getElementById(`cell-5-${cellYnr}`).textContent;
+            str = (hoursneededcell.value/60).toString();
+            str = str.slice(0, (str.indexOf(".")) + 2); 
+            hoursneededcell.textContent = str; 
+        }
+    }
+
+}
+
+
+function populateHoursAssigned(countingarrayforplan, employeearrayforplan, tasksarrayforplan){
+
+    let cellYnr;
+    let cellXnr;
+    let hoursassignedcell;
+    let totaltasksassigned = 0;
+    let str;
+
+}
+
+function clearPlanGridValues(tasksarrayforplan, employeearrayforplan, activitieslistforplan){
+
+    let collumncount = tasksarrayforplan.length+activitieslistforplan.length+2;
+    console.log(collumncount);
+    let rowcount = employeearrayforplan.length + 9;
+    console.log(rowcount)
+    let plancell;
+    
+    for(let i =0; i<collumncount; i++){
+            for( let j=0; j <rowcount; j++ ){
+            plancell = document.getElementById(`cell-${j}-${i}`);
+            plancell.parentNode.removeChild(plancell);
+        }
+    }
+    console.log(`plano lentele isvalyta`)
+}
+
+let createupdateplanbutton = document.getElementById("savePlanButton");
+createupdateplanbutton.addEventListener("click", createUpdatePlan);
+
+async function createUpdatePlan(){
+	
+
+    await fetch(`http://localhost:8886/planning/api/plan/bydate/${mydateforplan}`,{
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.length == 0){
+            createNewPlan();
+        }
+        else{
+            updateExistingPlan(data);
+
+}
+})
+
+    document.getElementById("planPage").classList = "optionaldivvisible";  
+}
+
+async function createNewPlan(){
+
+    let mydone =false;
+    let mymarked = false;
+    let mycount, myemployeeId, mytaskId, cellYnr, cellXnr, myinput;
+    
+    
+    for(let x=0; x<employeearrayforplan.length; x++){
+            for(let y=0; y<tasksarrayforplan.length; y++){
+            cellYnr=y+2;
+            cellXnr = x+7;
+                for(let i=0; i<competenciesarrayforplan.length; i++){
+                    if((document.getElementById(`cell-0-${cellYnr}`).data == competenciesarrayforplan[i].taskId)
+                        &&(document.getElementById(`cell-${cellXnr}-1`).data == competenciesarrayforplan[i].employeeId)){
+                               
+                        mycount = document.getElementById(`input-${cellXnr}-${cellYnr}`).value;
+                        myemployeeId = competenciesarrayforplan[i].employeeId;
+                        mytaskId = competenciesarrayforplan[i].taskId;
+                    
+                     await fetch("http://localhost:8886/planning/api/plan/create",{
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json",
+                                "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+                            },
+                            body: JSON.stringify({taskId: mytaskId, date:mydateforplan, employeeId:myemployeeId,
+                                 count:mycount, marked: mymarked, done: mydone})
+                        })
+                        .then(res => res.json())
+                    }
+                }
+            }   
+    }
+}
+
+async function updateExistingPlan(data){
+    let mydone =false;
+    let mymarked = false;
+    let mycount, myemployeeId, mytaskId, cellYnr, cellXnr, myinput, myplanIDupdate;
+    
+    
+    for(let x=0; x<employeearrayforplan.length; x++){
+        for(let y=0; y<tasksarrayforplan.length; y++){
+            cellYnr=y+2;
+            cellXnr = x+7;
+                       for(let i=0; i<competenciesarrayforplan.length; i++){
+                                 if((document.getElementById(`cell-0-${cellYnr}`).data == data[i].taskId)
+                                    &&(document.getElementById(`cell-${cellXnr}-1`).data == data[i].employeeId)){
+                    
+                     myinput = document.getElementById(`input-${cellXnr}-${cellYnr}`);
+                     mycount = myinput.value;
+                     myemployeeId = data[i].employeeId;
+                     myplanIDupdate = data[i].id;
+                     mytaskId = data[i].taskId;
+                                    
+                    
+                     await fetch(`http://localhost:8886/planning/api/plan/${myplanIDupdate}`,{
+                            method: "PUT",
+                            headers: {
+                                "Content-type": "application/json",
+                                "Authorization":`Bearer `+`${localStorage.getItem("token")}`
+                            },
+                            body: JSON.stringify({id:myplanIDupdate, taskId: mytaskId, date:mydateforplan, employeeId:myemployeeId,
+                                 count:mycount, marked: mymarked, done: mydone})
+                        })
+                        .then(res => res.json())
+                    }
+                }
+            }   
+    }
+}
+

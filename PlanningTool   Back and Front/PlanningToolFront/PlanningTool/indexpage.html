@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="indexpagestyle.css">
+    <script src="indexpagejs.js" defer> </script>
+    <script src="additionaltimejs.js" defer> </script>
+    <script src="countingjs.js" defer> </script>
+    <script src="planjs.js" defer> </script>
+    <script src="checklistjs.js" defer> </script>
+    <script src="competenciesjs.js" defer> </script>
+    <script src="taskscrudjs.js" defer> </script>
+    <script src="employeecrudjs.js" defer> </script>
+    <script src="teamscrudjs.js" defer> </script>
+    <title>Planning Tool Index Page</title>
+</head>
+<body>
+    <div class="div-center">
+        <h3 id="planningtitle">Planning Tool</h3>
+        <button id="logoutButton" class="btn">
+               LOG OUT
+            </button>
+    </div>
+    <div id="mainbox" class="div-center-top">
+    <div id="sidebar" class="div-center">
+        <ul>
+            <button id="additionalTimeMenuButton" onClick="toggleMenuPage()" class="btn">
+               Additional time
+            </button>
+            <button id="caseCountingMenuButton" onClick="toggleMenuPage()"class="btn">
+                Case counting
+            </button>
+            <button id="planMenuButton" onClick="toggleMenuPage()"class="btnplan">
+                   PLAN
+            </button>
+            <button id="checklistMenuButton"  onClick="toggleMenuPage()" class="btncheck">
+              CHECKLIST 
+            </button>
+            <button id="competenciesMenuButton" onClick="toggleMenuPage()" class="btn">
+                Competencies
+            </button>
+            <button id="tasksMenuButton" onClick="toggleMenuPage()" class="btn">
+                Tasks (create update)
+            </button>
+            <button id="employeesMenuButton" onClick="toggleMenuPage()" class="btn">
+                Employees (create update)
+            </button>
+            <button id="teamsMenuButton" onClick="toggleMenuPage()"  class="btn">
+                Teams (create update)
+            </button>
+            
+        </ul>
+    </div>
+    <div id="additionalTimePage" class="optionaldiv"> 
+        <div id="addNewTimeDiv" class="div-center">
+            <form action ="#" class="form" id="addTimeForm">
+            <h4>Add new additional time</h4>
+            <label for="addTimeEmployeeSelect">Employee</label><select id="addTimeEmployeeSelect"></select>
+            <input id="addStartDateForTime" type="date" placeholder="Start date" class="input"/>
+            <!-- <input id="addEndDateForTime" type="date" placeholder="End date" class="input"/> -->
+            <label for="addActivitySelect">Activity</label><select id="addActivitySelect"></select>
+            <input id="addTimeInput" type="text" placeholder="Duration in minutes" class="input"/>
+            <input id="addExplanationInput" type="text" placeholder="Explanation" class="input"/>
+            <button id="addTimeButton" class="btn">Add</button>
+            </form>
+        </div>
+        <div id="updateTimeDiv" class="div-center">
+            <form action ="#" class="form" id="updateTimeForm">
+            <h4>Update additional time</h4>
+            <label for="updateTimeEmployeeSelect">Employee</label><select id="updateTimeEmployeeSelect"></select>
+            <input id="updateTimeFieldId" type="text" placeholder="ID" class="input"/>
+            <input id="updateStartDateForTime" type="date" placeholder="Start date" class="input"/>
+            <!-- <input id="updateEndDateForTime" type="date" placeholder="End date" class="input"/> -->
+            <label for="updateActivitySelect">Activity</label><select id="updateActivitySelect"></select>
+            <input id="updateTimeInput" type="text" placeholder="Duration in minutes" class="input"/>
+            <input id="updateExplanationInput" type="text" placeholder="Explanation" class="input"/>
+            <button id="updateTimeButton" class="btn">Update</button>
+            </form>
+        </div>
+        <div id="deleteTimeDiv" class="div-center">
+            <form action ="#" class="form" id="deleteTimeForm">
+            <h4>Delete additional time</h4>
+            <!-- <label for="deleteTimeEmployeeSelect">Employee</label><select id="deleteTimeEmployeeSelect"></select> -->
+            <input id="deleteTimeFieldId" type="text" placeholder="ID" class="input"/>
+            <button id="deleteTimeButton" class="btn">Delete</button>
+            </form>
+        </div>
+        <div id="additionalTimeList" class="div-center">
+            <form action ="#" class="form" id="getAdditionalTimeslist">
+            <h6>List of additional times</h6>
+            <label for="additionalTimeEmployeeSelect">By Employee</label><select id="additionalTimeEmployeeSelect"></select>
+            <label for="additionalTimeDateSelect">By Date</label><input id="additionalTimeDateSelect" type="date" class="input"/>
+           <!-- <label for="additionalTimeCategorySelect">By Category</label><select id="additionalTimeCategorySelect"></select> -->
+            <button id="getTimesListButton" class="btn">Get</button>
+            </form>
+            <div id= "addTable" class = "additionalTable"></div>
+              
+        </div>   
+    </div>
+    <div id="caseCountingPage" class="optionaldiv"> 
+        <div class="div-left-top">
+        <input id="dateForCountingInput" type="date" class="input"/>
+        <button id="getDateForCounting" class="btn">SELECT DATE</button>
+        <form action ="#" class="form" id="createupdateCountingForm"></form>
+        </div>
+        <p id="countingGrid" class="div-left-top">
+            <button id="createupdateCountingButton" class="btn">SAVE</button>
+            <!-- <input type="submit" class="btn" value = "SAVE">  -->
+        </p>
+        </form>
+        
+    </div>
+    <div id="planPage" class="optionaldiv"> 
+        <input id="dateForPlanInput" type="date" class="input"/>
+        <button id="getDateForPlan" class="btn">SELECT DATE</button>
+        <div>
+            <button id="savePlanButton" class="btn">SAVE</button>
+        </div>
+        <form action ="#" class="form" id="PlanningForm"></form>
+        <p id="planGrid">
+            
+            <!-- <input type="submit" class="btn" value = "SAVE">  -->
+        </p>
+        </form>
+        
+    </div>
+    <div id="checklistPage" class="optionaldiv"> 
+        <p></p>
+    </div>
+    <div id="competenciesPage" class="optionaldiv"> 
+        <div id="addCompetencyDiv" class="div-center">
+            <form action ="#" class="form" id="addCompetencyForm">
+            <h4>Add new competency</h4>
+            <label for="createCompetencyForEmployeeSelect">Employee</label><select id="createCompetencyForEmployeeSelect"></select>
+            <label for="createCompetencyInTaskSelect">Task</label><select id="createCompetencyInTaskSelect"></select>
+            <button class="btn">Add</button>
+            </form>
+        </div>
+        <div id="updateCompetencyDiv" class="div-center">
+            <form action ="#" class="form" id="updateCompetencyForm">
+            <h4>Update competency level</h4>
+            <label for="updateCompetencyForEmployeeSelect">Employee</label><select id="updateCompetencyForEmployeeSelect"></select>
+            <label for="updateCompetencyInTaskSelect">Task</label><select id="updateCompetencyInTaskSelect"></select>
+            <label for="updateCompetencyLevelSelect">Level</label><select id="updateCompetencyLevelSelect"></select>
+            <button id="deleteCompetencyButton" class="btn">Update</button>
+            </form>
+        </div>
+        <div id="deleteCompetencyDiv" class="div-center">
+            <form action ="#" class="form" id="deleteCompetencyForm">
+            <h4>Delete competency</h4>
+            <label for="deleteCompetencyForEmployeeSelect">Employee</label><select id="deleteCompetencyForEmployeeSelect"></select>
+            <label for="deleteCompetencyInTaskSelect">Task</label><select id="deleteCompetencyInTaskSelect"></select>
+            <button id="deleteCompetencyButton" class="btn">Delete</button>
+            </form>
+        </div>
+        <p id="competencyLegend">
+            
+            <div class="compLegendTable" class="div-center">
+                <div class="compLegendTitle"><h6>Grade</h6></div>
+                <div class="compLegendTitle"><h6>Description</h6></div>
+                <div class="compLegendContent0">0</div>
+                <div class="compLegendContent0">Employee has no competency to complete the task</div>
+                <div class="compLegendContent1">1</div>
+                <div class="compLegendContent1">Employee is not able yet to complete task endependently, but some trainings has started. 10%</div>
+                <div class="compLegendContent2">2</div>
+                <div class="compLegendContent2">Employee has finished trainings, but some supervision is still needed. 75%</div>
+                <div class="compLegendContent3">3</div>
+                <div class="compLegendContent3">Employee has full competency to complete task independently. 100%</div>
+                <div class="compLegendContent4">4</div>
+                <div class="compLegendContent4">Employee completes task independently, within standart time, all exception included and can train other colleagues.</div>
+            </div>
+            
+        </p>
+    </div>  
+    <div id="tasksPage" class="optionaldiv"> 
+        <div id="addNewTaskDiv" class="div-center">
+            <form action ="#" class="form" id="addNewTaskForm">
+            <h4>Add new task</h4>
+            <input id="createTaskNameInput" type="text" placeholder="Task Name" class="input"/>
+            <input id="createTaskDurationInput" type="text" placeholder="Standard duration" class="input"/>
+            <label for="createTaskTypeSelect">Task SLA type</label><select id="createTaskTypeSelect"></select>
+            <input id="createTaskSlaInput" type="text" placeholder="Task SLA" class="input"/>
+            <label for="createTaskBelongsToTeam">Team</label><select id="createTaskBelongsToTeam"></select>
+            <input type="submit" class="btn" value = "Add">
+            </form>
+        </div>
+        <div id="updateTaskDiv" class="div-center">
+            <form action ="#" class="form" id="updateTaskForm">
+            <h4>Update task</h4>
+            <select id="updateTaskNameSelect"></select>
+            <input id="updateTaskNameInput" type="text" placeholder="New task name" class="input"/>
+            <input id="updateTaskDurationInput" type="text" placeholder="New task duration" class="input"/>
+            <label for="updateTaskTypeSelect">Task SLA type</label><select id="updateTaskTypeSelect"></select>
+            <input id="updateTaskSla" type="text" placeholder="Task SLA" class="input"/>
+            <label for="updateTaskBelongsToTeam">Team</label><select id="updateTaskBelongsToTeam"></select>
+            <input type="submit" class="btn" value = "Change">
+            </form>
+        </div>
+        <div id="deleteTaskDiv" class="div-center">
+            <form action ="#" class="form" id="deleteTaskForm">
+            <h4>Delete task</h4>
+            <select id="deleteTaskNameSelect"></select>
+            <button class="btn">Delete</button>
+            </form>
+        </div>
+    </div>
+    <div id="employeesPage" class="optionaldiv" > 
+        <div id="AddNewEmployeeDiv" class="div-center">
+            <form action ="#" class="form" id="addNewEmployeeForm">
+            <h4>Add new employee</h4>
+            <label for="shortname"></label><input id="createShortnameInput" type="text" placeholder="Shortname" class="input"/>
+            <label for="name"></label><input id="createNameInput" type="text" placeholder="Name" class="input"/>
+            <label for="email"></label><input id="createEmailInput" type="text" placeholder="Email" class="input"/>
+            <label for="password"></label><input id="createPasswordInput" type="text" placeholder="Password" class="input"/>
+            <label for="password"></label><input id="repeatPasswordInput" type="text" placeholder="Repeat password" class="input"/>
+            <input type="submit" class="btn" value = "Add">
+            </form>
+        </div>
+        <div id="AddEmployeeToTeamDiv" class="div-center">
+            <form action ="#" class="form" id="addEmployeeToTeamForm">
+            <h4>Add employee to team, assign role and working hours</h4>
+            <select id="employeeToAddToTeamSelect"> </select>
+            <label for="roleToUpdateEmployeeSelect">Role</label><select id="roleToUpdateEmployeeSelect"> </select> 
+            <label for="teamToUpdateEmployeeSelect">Team</label><select id="teamToUpdateEmployeeSelect"> </select>
+            <label for="addWorkingHours"></label><input id="addWorkingHours" type="text" placeholder="Hours" class="input"/> 
+            <input type="submit" class="btn" value = "Add">
+            </form>
+        </div>
+        <div id="ChangeEmployeePasswordDiv" class="div-center">
+            <form action ="#" class="form" id="changeEmployeePasswordForm">
+            <h4>Change password</h4>
+            <select id="employeeForPassChangeSelect"> </select>
+            <input id="changePasswordInput" type="text" placeholder="Password" class="input"/>  
+            <input type="submit" class="btn" value = "Change">
+            </form>
+        </div>
+        <div id="DeleteEmployeeDiv" class="div-center">
+            <form action ="#" class="form" id="deleteEmployeeForm">
+            <h4>Delete Employee</h4>
+            <select id="employeeToDeleteSelect"> </select>  
+            <button type="submit" class="btn" > Delete </button>
+            </form>
+        </div>
+    </div>
+    <div id="teamsPage" class="optionaldiv"> 
+        <p></p>
+        <div id="addNewTeamDiv" class="div-center">
+            <form action ="#" class="form" id="addNewTeamForm">
+            <h4>Add new team</h4>
+            <input id="teamNameCreationInput" type="text" placeholder="Name of the team" class="input"/>
+            <input type="submit" class="btn" value = "Add">
+            </form>
+        </div>
+        <div id="changeTeamNameDiv" class="div-center">
+            <form action ="#" class="form" id="changeTeamNameForm">
+            <h4>Change team name</h4>
+            <select id="teamNameToChangeSelect"> </select>
+            <input id="changeTeamNameInput" type="text" placeholder="New name of the team" class="input"/>
+            <input type="submit" class="btn" value = "Change">
+            </form>
+        </div>
+        <div id="deleteTeamDiv" class="div-center">
+            <form action ="#" class="form" id="deleteTeamForm">
+            <h4>Delete team</h4>
+            <select id="teamNameToDeleteSelect"> </select>
+            <button type="submit" class="btn"> Delete </button>
+            </form>
+        </div>
+    </div>  
+    </div>
+</div>
+</body>
+</html>
