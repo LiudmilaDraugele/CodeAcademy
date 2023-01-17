@@ -1,0 +1,46 @@
+div{
+    display: block;
+    border: solid;
+    padding: 2rem;
+    background-color: white;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+h1, h2{
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+}
+
+form{
+    display: table;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+}
+#signinmenu{
+    display: block;
+    opacity: 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.input{
+    margin: 1rem;
+    border: 1px solid black;
+}
+.btn{
+    margin: 2px;
+    background-color: rgb(217, 232, 218);
+    height: 30px;
+    width: 100px;
+    border-radius: 25px;
+}
+.errormessage{
+    display: none;
+    color: rgba(233, 19, 76, 0.909);
+    font-weight: bold;
+}
