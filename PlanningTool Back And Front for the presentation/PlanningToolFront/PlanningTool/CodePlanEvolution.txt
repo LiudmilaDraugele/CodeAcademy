@@ -1,0 +1,53 @@
+
+sita funkcija veikia vienai eilutei
+
+
+function populateRemainingVolumes(countingarrayforplan){
+
+    let cellYnr,cellXnr, remainingcell;
+    let assignedtasks = 0;
+    let getIntegerFromInput;
+    let totalvolumes;
+    let colorthat;
+    
+    
+        for(let x=0; x<employeearrayforplan.length; x++){
+            cellXnr=x+additionalCollumnCountFront;
+            if(document.getElementById(`input-${cellXnr}-2`) != null){
+                mycount = document.getElementById(`input-${cellXnr}-2`).value;
+                assignedtasks = assignedtasks + parseInt(mycount);
+            }
+            remainingcell = document.getElementById(`cell-4-2`);
+            
+            totalvolumes = document.getElementById(`cell-3-2`).textContent;
+            console.log(`total volumes! ${totalvolumes}`)
+            remainingcell.textContent = parseInt(totalvolumes) - assignedtasks;
+            colorthat = parseInt(remainingcell.textContent);
+            if (colorthat == 0 ) {
+                remainingcell.style.backgroundColor = "rgb(150, 200, 74)";
+            } else if (colorthat < 0 ) {
+                remainingcell.style.backgroundColor = "yellow";
+            } else {
+                remainingcell.style.backgroundColor = "orange";
+            }
+
+    }
+    //     for(let y=0; y<tasksarrayforplan.length; y++){
+    //     cellYnr=y+additionalRowCount;
+        
+    //     for(let j=0; j<countingarrayforplan.length; j++){
+    //         for(let x=0; x<employeearrayforplan.length; x++){
+                
+    //             cellXnr=x+additionalCollumnCountFront;
+    //             getIntegerFromInput = document.getElementById(`input-${cellXnr}-${cellYnr}`).value;
+    //             console.log(` get that integer!  ${getIntegerFromInput}`)
+    //             //assignedtasks = document.getElementById(`input-${cellXnr}-${cellYnr}`).data + assignedtasks;
+    //             console.log(`counted assigned tasks${assignedtasks}`)
+    //         }
+    //         remainingcell = document.getElementById(`cell-4-${cellYnr}`);
+    //         remainingcell.style.backgroundColor = "rgb(217, 232, 218)";
+    //         remainingcell.value = document.getElementById(`cell-3-${cellYnr}`).textContent - assignedtasks;
+            
+    //     }
+    // }
+}
